@@ -5,7 +5,3 @@ import '../utils/constants/op.dart';
 bool inputCheck(List<dynamic> chunks) {
   return chunks.length == 1 && bscript.isCanonicalScriptSignature(chunks[0]);
 }
-
-bool outputCheck(Uint8List script) {
-  // TODO
-}

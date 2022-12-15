@@ -6,6 +6,7 @@ import '../../lib/src/payments/p2wpkh.dart' show P2WPKH;
 import 'package:pointycastle/digests/sha256.dart';
 import 'dart:convert';
 import 'package:test/test.dart';
+import 'dart:typed_data';
 
 NETWORKS.NetworkType litecoin = new NETWORKS.NetworkType(
     messagePrefix: '\x19Litecoin Signed Message:\n',
@@ -30,7 +31,9 @@ main() {
     });
     test('can generate an address from a SHA256 hash', () {
       final hash = new SHA256Digest()
-          .process(utf8.encode('correct horse battery staple'));
+          // .process(utf8.encode('correct horse battery staple') as Uint8List);
+          // fix the above line since Uint8List is not in scope
+          .process(utf8.encode('correct horse battery staple') as Uint8List);
       final keyPair = ECPair.fromPrivateKey(hash);
       final address =
           new P2PKH(data: new PaymentData(pubkey: keyPair.publicKey))
